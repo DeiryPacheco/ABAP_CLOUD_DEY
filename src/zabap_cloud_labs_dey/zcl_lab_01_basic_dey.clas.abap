@@ -16,6 +16,16 @@ CLASS zcl_lab_01_basic_dey IMPLEMENTATION.
 
   METHOD if_oo_adt_classrun~main.
 
+
+*C (Character): Utilizado para almacenar cadenas de caracteres. La longitud puede variar, pero se especifica al definir el tipo de dato.
+*N (Numeric Text): Almacena caracteres numéricos (0-9) como texto, sin valor numérico.
+*D (Date): Almacena fechas en el formato YYYYMMDD.
+*T (Time): Almacena horas en el formato HHMMSS.
+*I (Integer): Entero de 4 bytes, usado para almacenar números enteros.
+*F (Floating Point): Para números de coma flotante, permitiendo la representación de valores decimales.
+*P (Packed Number): Usado para valores numéricos empaquetados, incluyendo decimales. Especifica la longitud y los decimales.
+
+
    CONSTANTS: mc_PRICE TYPE f VALUE '10.5',
                mc_name  TYPE string VALUE 'DEIRY'.
 
@@ -48,13 +58,13 @@ CLASS zcl_lab_01_basic_dey IMPLEMENTATION.
     out->write( | { mv_id_code } | ).
     out->write( | { mv_qr_code } | ).
 
-    TYPES: BEGIN OF mty_customer,
+    TYPES: BEGIN OF mty_customer,                   "DEFINICION DE TIPO ESTRUCTURADO
              id       TYPE i,
              customer TYPE c LENGTH 15,
              age      TYPE i,
            END OF mty_customer.
 
-    DATA ls_customer TYPE mty_customer.
+    DATA ls_customer TYPE mty_customer.             "INSTANCIA DE TIPO ESTRUCTURADO
     ls_customer = VALUE #( id = 1234 customer = mc_name age = 31 ).
     out->write( | { ls_customer-id } { ls_customer-customer } { ls_customer-age } | ).
 
