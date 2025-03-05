@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_lab_01_var_dey IMPLEMENTATION.
+CLASS ZCL_LAB_01_VAR_DEY IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
