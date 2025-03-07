@@ -18,7 +18,17 @@ CLASS zcl_lab_04_message_dey IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
 
 
-***************************2. FUNCIONES DE DESCRIPCION*******************************************
+**************************2. FUNCIONES DE DESCRIPCION***********************************************
+*ANALIZAR EL CONTENIDO DE UNA CADENA DE CARACTERES DEVOLVIENDO UN NUMERO POR EJEMPLO (POSICION, CANTIDAD DE APARICIONES)
+*EJEMPLOS: FIND(), NUMOFCHART(), STRLEN(), COUNT()
+*PARAMETROS QUE SE USAN DENTRO DE LAS FUNCIONES
+*val - Input Value
+*sub - Substring
+*regex - Regular Expression
+*case - Uppercase and Lowercase
+*occ - Occurrence
+*off, len - Offset and Length
+
     DATA : lv_order_status TYPE String VALUE 'Purchase Completed Successfully',
            lv_char_number  TYPE i.
 *   1. FUNCION STRLEN() = LONGITUD DE UN STRING (PUEDE TOMAR EN CUENTA LOS ESPACIOS AL FINAL)
@@ -48,24 +58,26 @@ CLASS zcl_lab_04_message_dey IMPLEMENTATION.
     ENDIF.
 
 **************************3. FUNCIONES DE PROCESAMIENTO********************************************
+*CUANDO SE NECESITA TRANSFORMAR UNA CADENA DE CARACTERES EN OTRA CADENA
+*EJEMPLOS: REPLACE(), TO_UPPER(), TO_LOWER(), TO_MIXED(), CONDENSE(), REPEAT(),
 
     lv_order_status = to_upper( lv_order_status ).
     out->write( | TO_UPPER = { lv_order_status } | ).
     lv_order_status = to_lower( lv_order_status ).
     out->write( | TO_LOWER = { lv_order_status }  | ).
-    lv_order_status = to_mixed( val = lv_order_status sep = ` ` case = 'X').
+    lv_order_status = to_mixed( val = lv_order_status sep = ` ` case = 'X' ).
     out->write( | TO_MIXED = { lv_order_status } | ).
 
 
-**************************4. FUNCIONES DE CONTENIDO************************************************
+**************************4. FUNCIONES DE PREDICADO O CONTENIDO************************************
+*TAMBIEN ANALIZA EL CONTENIDO DE UNA CADENA PERO ESTAS RETORNAN VALORES BOOLEANOS
+*EJEMPLOS CONTAINS(),
   DATA : LV_PATTERN TYPE String VALUE '\d{3}-\d{3}-\d{4}',
          LV_PHONE  TYPE String VALUE '665-532-735'.
 
 
 **************************5. FUNCIONES CON EXPRESIONES REGULARES***********************************
     DATA lv_email TYPE string VALUE 'Agregar cualquier correo'.
-
-
 
   ENDMETHOD.
 ENDCLASS.
