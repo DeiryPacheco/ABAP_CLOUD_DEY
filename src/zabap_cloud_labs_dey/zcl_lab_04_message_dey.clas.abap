@@ -59,25 +59,48 @@ CLASS zcl_lab_04_message_dey IMPLEMENTATION.
 
 **************************3. FUNCIONES DE PROCESAMIENTO********************************************
 *CUANDO SE NECESITA TRANSFORMAR UNA CADENA DE CARACTERES EN OTRA CADENA
-*EJEMPLOS: REPLACE(), TO_UPPER(), TO_LOWER(), TO_MIXED(), CONDENSE(), REPEAT(),
+*EJEMPLOS: REPLACE(), TO_UPPER(), TO_LOWER(), TO_MIXED(), CONDENSE(), REPEAT(), REVERSE()
 
-    lv_order_status = to_upper( lv_order_status ).
-    out->write( | TO_UPPER = { lv_order_status } | ).
-    lv_order_status = to_lower( lv_order_status ).
-    out->write( | TO_LOWER = { lv_order_status }  | ).
-    lv_order_status = to_mixed( val = lv_order_status sep = ` ` case = 'X' ).
-    out->write( | TO_MIXED = { lv_order_status } | ).
+
+    out->write( | TO_UPPER = { to_upper( lv_order_status ) } | ).
+
+    out->write( | TO_LOWER = {  to_lower( lv_order_status ) }  | ).
+
+    out->write( | TO_MIXED = { to_mixed( val = lv_order_status sep = ` ` case = 'X' ) } | ).
+    out->write( | FROM_MIXED = { from_mixed( val = lv_order_status case = 'X' ) } | ).
+
+    lv_order_status = shift_left( val = lv_order_status circular = 9 ).
+    out->write( | shift_left circular = { lv_order_status } | ).
+    lv_order_status = shift_right( val = lv_order_status circular = 9 ).
+    out->write( | shift_right circular = { lv_order_status } | ).
+
+    out->write( | substring = { substring( val = lv_order_status off = 8 len = 9 ) } | ).
+    lv_order_status = reverse( val = lv_order_status ).
+    out->write( | REVERSE = { lv_order_status } | ).
 
 
 **************************4. FUNCIONES DE PREDICADO O CONTENIDO************************************
 *TAMBIEN ANALIZA EL CONTENIDO DE UNA CADENA PERO ESTAS RETORNAN VALORES BOOLEANOS
 *EJEMPLOS CONTAINS(),
-  DATA : LV_PATTERN TYPE String VALUE '\d{3}-\d{3}-\d{4}',
-         LV_PHONE  TYPE String VALUE '665-532-735'.
+    DATA : lv_pattern TYPE String VALUE '\d{3}-\d{3}-\d{4}',
+           lv_phone   TYPE String VALUE '665-532-735'.
 
+
+    IF contains( val = lv_phone pcre = lv_pattern ).
+      out->write( | TELEFONO CON FORMATO CORRECTO | ).
+    ELSE.
+      out->write( | TELEFONO CON FORMATO INCORRECTO | ).
+    ENDIF.
 
 **************************5. FUNCIONES CON EXPRESIONES REGULARES***********************************
-    DATA lv_email TYPE string VALUE 'Agregar cualquier correo'.
+    DATA lv_email TYPE string VALUE 'DEYNVS@GMAIL.COM'.
+    lv_pattern = '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'.
+
+    IF contains( val = lv_email pcre = lv_pattern ).
+      out->write( | CORREO CON FORMATO CORRECTO | ).
+    ELSE.
+      out->write( | CORREO CON FORMATO INCORRECTO | ).
+    ENDIF.
 
   ENDMETHOD.
 ENDCLASS.
